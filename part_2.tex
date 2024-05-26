@@ -1,0 +1,201 @@
+\section{Глава вторая}\label{2sect}
+\subsection{Разработка библиотек с помощью Gpt-Chat}
+
+На данный момент в языке JavaScript отсутствуют встроенные средства для изображения трёхмерных фигур. И существует только одна подходящая библиотека \texttt{Three.js}, которая могла бы выполнить проецирование координат фигуры на плоскость с учётом положения наблюдателя. Возможности библиотеки во много раз превосходят требуемую функциональность для нашего проекта.
+
+Подобные ей библиотеки проводят проецирование на плоскость с поворотом только вокруг осей $OX$ и $OZ$. Что при отрисовке более сложных чертежей является недостаточным.
+
+С учётом самых современных технологий, встал закономерный вопрос, сможет ли нейросеть ChatGPT 3.5 сгенерировать код проектора. Ниже представлен диалог с нейросетью:
+
+\begin{leftBox}
+	write a 2D to 3D projector in JS without using libraries. input:  point = \{x,y,z\}, camera= \{x,y,z, angleX, angleY, angleZ, scale\}
+\end{leftBox}
+
+\begin{lstlisting}
+	
+	// Define the point in 2D
+	const point = { x: 100, y: 50, z: 0 };
+
+	// Define the camera parameters
+	const camera = { x: 0, y: 0, z: 0, angleX: 0, angleY: 0, angleZ: 0, scale: 1 };
+
+	// Function to project 2D point to 3D
+	function project2Dto3D(point, camera) {
+			// Apply rotation around X axis
+			const rotatedY = point.y * Math.cos(camera.angleX) - point.z * Math.sin(camera.angleX);
+			const rotatedZ = point.y * Math.sin(camera.angleX) + point.z * Math.cos(camera.angleX);
+
+			// Apply rotation around Y axis
+			const rotatedX = point.x * Math.cos(camera.angleY) + rotatedZ * Math.sin(camera.angleY);
+			const rotatedZ2 = -point.x * Math.sin(camera.angleY) + rotatedZ * Math.cos(camera.angleY);
+
+			// Apply rotation around Z axis
+			const rotatedX2 = rotatedX * Math.cos(camera.angleZ) - rotatedY * Math.sin(camera.angleZ);
+			const rotatedY2 = rotatedX * Math.sin(camera.angleZ) + rotatedY * Math.cos(camera.angleZ);
+
+			// Apply scaling
+			const scaledX = rotatedX2 * camera.scale;
+			const scaledY = rotatedY2 * camera.scale;
+
+			// Translate to camera position
+			const translatedX = scaledX + camera.x;
+			const translatedY = scaledY + camera.y;
+			const translatedZ = rotatedZ2 * camera.scale + camera.z;
+
+			return { x: translatedX, y: translatedY, z: translatedZ };
+		}
+
+	// Project the point from 2D to 3D
+	const projectedPoint = project2Dto3D(point, camera);
+
+	// Output the result
+	console.log("Projected 3D point:", projectedPoint);
+	
+\end{lstlisting}
+
+\begin{leftBox}
+	shorten function project2Dto3D
+\end{leftBox}
+
+\begin{lstlisting}
+	
+	function project2Dto3D(point, camera) {
+			const { x, y, z } = point;
+			const { angleX, angleY, angleZ, scale, x: cx, y: cy, z: cz } = camera;
+
+			const cosX = Math.cos(angleX);
+			const sinX = Math.sin(angleX);
+			const cosY = Math.cos(angleY);
+			const sinY = Math.sin(angleY);
+			const cosZ = Math.cos(angleZ);
+			const sinZ = Math.sin(angleZ);
+
+			const rx = x * cosY * cosZ - y * cosY * sinZ + z * sinY;
+			const ry = (x * (sinX * sinY * cosZ + cosX * sinZ) + y * (sinX * sinY * sinZ - cosX * cosZ) + z * sinX * cosY) * scale;
+			const rz = (-x * (cosX * sinY * cosZ - sinX * sinZ) - y * (cosX * sinY * sinZ + sinX * cosZ) + z * cosX * cosY) * scale;
+
+			return { x: rx + cx, y: ry + cy, z: rz + cz };
+		}
+	
+\end{lstlisting}
+
+
+\begin{leftBox}
+	add comments in code
+\end{leftBox}
+
+\begin{lstlisting}
+	
+	function project2Dto3D(point, camera) {
+			// Extract point coordinates
+			const { x, y, z } = point;
+			// Extract camera parameters
+			const { angleX, angleY, angleZ, scale, x: cx, y: cy, z: cz } = camera;
+
+			// Precompute trigonometric values for rotation angles
+			const cosX = Math.cos(angleX);
+			const sinX = Math.sin(angleX);
+			const cosY = Math.cos(angleY);
+			const sinY = Math.sin(angleY);
+			const cosZ = Math.cos(angleZ);
+			const sinZ = Math.sin(angleZ);
+
+			// Apply rotation around X axis
+			const rx = x * cosY * cosZ - y * cosY * sinZ + z * sinY;
+			// Apply rotation around Y axis and scale
+			const ry = (x * (sinX * sinY * cosZ + cosX * sinZ) + y * (sinX * sinY * sinZ - cosX * cosZ) + z * sinX * cosY) * scale;
+			// Apply rotation around Z axis and scale
+			const rz = (-x * (cosX * sinY * cosZ - sinX * sinZ) - y * (cosX * sinY * sinZ + sinX * cosZ) + z * cosX * cosY) * scale;
+
+			// Translate to camera position
+			const translatedX = rx + cx;
+			const translatedY = ry + cy;
+			const translatedZ = rz + cz;
+
+			return { x: translatedX, y: translatedY, z: translatedZ };
+		}
+	
+\end{lstlisting}
+
+За несколько шагов удалось получить корректный, оптимизированный код.
+
+\subsection{Применение ООП для разработки шаблонов}
+
+Стоит отметить, что задач по теме "Стереометрия" огромное множество. Поэтому одной из первостепенных задач было сократить код шаблонов и исключить вычислительные ошибки. Для этого были разработаны классы многогранников, которые содержат в себе длины рёбер, объем, площади оснований, а так же тернарную матрицу связности и канонические координаты вершин.
+
+Матрица может содержать значения: 1, 0, либо специальное значение, указывающий на отображении ребра пунктиром.
+
+Каноническим положением будем называть такое расположение многогранника, когда его высота, проходящая через центр масс его основания, совпадает с осью аппликат и начало координат делится пополам.
+
+При таком расположении, начало координат можно расположить в центре иллюстрация. Тогда чертёж не будет смещён ни в одну из сторон.
+
+\subsection{Вспомогательные функции}
+
+\subsubsection{Функции для работы с координатами}
+
+\function{verticesInGivenRange}{vertex, {startX, finishX, startY, finishY}}
+
+Возвращает \texttt{true}, если двухмерная координата точки \texttt{vertex} вида \texttt{\{x,y\}} находится в некоторой области, иначе \texttt{false}.
+
+\function{autoScale}{vertex3D, camera, vertex2D, {startX, finishX, startY, finishY, step, maxScale}}
+
+Увеличивает свойство объекта \texttt{camera.scale}, пока все двухмерные координаты \texttt{vertex2D} вида \texttt{\{x,y\}}  находится в некоторой области. \texttt{step} по умолчанию $0.1$.
+
+\function{distanceFromPointToSegment}{point, segmentStart, segmentEnd}
+
+Возвращает длину перпендикуляра между двухмерной точкой \texttt{point} вида \texttt{\{x,y\}} до отрезка с концами в \texttt{segmentStart} и \texttt{segmentEnd}.
+
+\subsubsection{Работа с canvas}
+
+\prototype{CanvasRenderingContext2D}{drawFigure}{vertex, matrixConnections}
+
+Соединяет линиями точки массива \texttt{vertex} с элементами \texttt{\{x,y\}} в соответствии с матрицей связей \texttt{matrixConnections}, которая является массивом,который может содержать в себе 0, 1 и массив step, указывающий на отрисовку пунктиром.
+
+Пример матрицы связей:
+\begin{lstlisting}[frame=none]
+	let matrixConnections = [
+			[1],
+			[strok, strok],
+			[0, 0, strok],
+			[1, 0, 0, 1],
+			[0, 1, 0, 1, 1]
+		];
+	\end{lstlisting}
+
+	СЛИШКОМ СЛОЖНОЕ ОПИСАНИЕ и не утверждено название функции
+
+\prototype{CanvasRenderingContext2D}{drawFigureVer2}{vertex, matrixConnections}
+Соединяет линиями точки массива \texttt{vertex} с элементами \texttt{\{x,y\}} в соответствии с матрицей связей \texttt{matrixConnections}, которая является объектом с числовыми полями (номерами вершин), которые содержат в себе массив с номерами связываемых вершин.
+
+Пример матрицы связей:
+\begin{lstlisting}[frame=none]
+	let matrixConnections = {
+		0: [1, [3, stroke], 5],
+		2: [1, [3, stroke], 7],
+		4: [[3, stroke], 5, 7],
+		9: [1, 8, 10],
+		11: [8, 10, 12],
+		13: [5, 8, 12],
+		15: [7, 10, 12],
+	};
+	\end{lstlisting}
+
+\subsection{Шаблоны по теме Стереометрия}
+
+\subsubsection*{Задание №3011}
+
+\task{В правильной четырёхугольной пирамиде $OQSDX$ с основанием $QSDX$ боковое ребро равно $\sqrt{1489,5}$, сторона основания равна $39$. Найдите объём пирамиды.}{13689}{314379431351734n0}
+\task{В правильной четырёхугольной пирамиде $VEBXI$ с основанием $EBXI$ боковое ребро равно $\sqrt{848,5}$, сторона основания равна $27$. Найдите объём пирамиды.}{5346}{438948036652505n0}
+\task{В правильной четырёхугольной пирамиде $WYFDC$ с основанием $YFDC$ боковое ребро равно $\sqrt{1513}$, сторона основания равна $24$. Найдите объём пирамиды.}{6720}{087863431801837n0}
+
+\subsubsection*{Задание №27114}
+
+\task{Объём правильной четырёхугольной пирамиды $UCXOZ$ равен $31164$. Точка $Y$ – середина ребра $UC$. Найдите объём треугольной пирамиды $YCXZ$.}{7791}{455385802312436n0}
+\task{Объём правильной четырёхугольной пирамиды $TKUWG$ равен $4800$. Точка $L$ – середина ребра $TK$. Найдите объём треугольной пирамиды $LKUG$.}{1200}{165146394950057n0}
+\task{Объём правильной четырёхугольной пирамиды $UOVSZ$ равен $25650$. Точка $B$ – середина ребра $UO$. Найдите объём треугольной пирамиды $BOVZ$.}{6412,5}{5369517169326834n0}
+
+\subsubsection*{Задание №27115}
+
+\task{Объём треугольной пирамиды равен $ 2560 $. Через вершину пирамиды и среднюю линию её основания проведена плоскость (см. рисунок). Найдите объём отсечённой треугольной пирамиды.}{640}{905430173181577n0}
+\task{Объём треугольной пирамиды равен $ 4950 $. Через вершину пирамиды и среднюю линию её основания проведена плоскость (см. рисунок). Найдите объём отсечённой треугольной пирамиды.}{1237,5}{378093624649185n0}
+\task{Объём треугольной пирамиды равен $ 12096 $. Через вершину пирамиды и среднюю линию её основания проведена плоскость (см. рисунок). Найдите объём отсечённой треугольной пирамиды.}{3024}{224079401047001n0}

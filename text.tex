@@ -1,0 +1,159 @@
+\documentclass[a4paper, 14pt]{extarticle}
+
+\usepackage{ifluatex}
+\usepackage{ifpdf}
+
+\ifluatex
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+\setmainfont{CMU Serif}
+\newfontfamily{\cyrillicfont}{CMU Serif}
+\setsansfont{CMU Sans Serif}
+\newfontfamily{\cyrillicfontsf}{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+\newfontfamily{\cyrillicfonttt}{CMU Typewriter Text}
+\else
+\ifpdf 
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\typeout{PDF only}
+\fi
+\fi
+
+\usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm]{geometry}
+%%% Дополнительная работа с математикой
+\usepackage{amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage{amsmath}
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+\usepackage{mathrsfs} % Красивый матшрифт
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+  {\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%% Работа с картинками
+
+\usepackage{graphicx}  % Для вставки рисунков
+\graphicspath{ {images/} }
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={let, typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, const},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this,},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{green}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+  language=JavaScript,
+  extendedchars=true,
+  basicstyle=\footnotesize\ttfamily,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  showspaces=false,
+  numbers=none,
+  numberstyle=\footnotesize,
+  numbersep=9pt,
+  tabsize=2,
+  keepspaces=true,
+  breaklines=true,
+  showtabs=false,
+  captionpos=b
+  escapechar =| ,
+  frame=single ,
+  commentstyle=\itshape ,
+  frameshape={RYR}{Y}{Y}{RYR},
+  stringstyle =\bfseries,
+}
+
+\newcommand*{\function}[2]{\texttt{\textcolor{Red}{function} \textcolor{Purple}{#1}(#2)}}
+
+\newcommand*{\prototype}[3]{\texttt{\textcolor{Orange}{#1}.\textcolor{Blue}{prototype}.\textcolor{Purple}{#2} = \textcolor{Red}{function}(#3)}}
+
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+
+\usepackage[most]{tcolorbox}
+
+\newtcolorbox{leftBox}{
+  colback=white,colframe=black, 
+  width = 0.97\linewidth,
+  sharp corners = southwest,
+}
+
+\newcommand*{\task}[3]{
+  \begin{multicols}{2}
+    #1\\\\
+    Ответ: $#2$\\
+    \includegraphics[width=0.4\textwidth]{#3}
+  \end{multicols}
+}
+
+\begin{document}
+
+\include{title.tex}
+
+\tableofcontents
+
+\include{intro.tex}
+
+\include{part_1.tex}
+
+\include{part_2.tex}
+
+\include{conclus.tex}
+
+\include{bibliography.tex}
+\end{document}
+
+%Планиметрия
+  %Вспомогательные функции
+  %шаблоны
+%Нейронные сети и шаблоны по теме стереометрия
+  %Современный прогресс генеративных текстовых нейросетей
+  %Разработка библиотек с помощью Gpt-Chat
+  %Применение ООП для разработки шаблонов
+  %шаблоны
+
+%Введение
+%определение шаблона
+%Основные сведения о проекте
+  %1) используемые технологи
+  %2)Внутренние библиотеки
+  %3)Примеры шаблонов заданий(мои старые простые)
+%Шаблоны на чтение графиков функции с произвольным параметром
+  %вспомогательные функции добавленные к библиотеке
+  %разработанные шаблоны
+%Сплайны третьего порядка и шаблоны на чтение графика функции и её производной
+  %понятие сплайна 3 порядка + про библиотеку
+  %вспомогательные функцииЫ
+  %шаблоны
+%ВОЗМОЖНО ТОЛЬКО ЭТО
