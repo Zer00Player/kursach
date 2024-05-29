@@ -2,3 +2,168 @@
 %%Программная реализация (на языке Javascript) алгоритмов
 %% генерации фонда оценочных средств по математике
 \section{Глава первая}
+\subsection{Вспомогательные функции}
+\subsubsection{Функции для работы с массивами}
+\prototype[repeat]{Array}{permuteCyclic}
+Возвращает массив после циклической перестановки.
+
+\begin{lstlisting}
+    let array = [1,2,3,4,5];
+
+    array.permuteCyclic(1);
+    // [5, 1, 2, 3, 4]
+
+    array.permuteCyclic(-2);
+    // [3, 4, 5, 1, 2]
+
+    array.permuteCyclic(0);
+    // [1 ,2 ,3 ,4 ,5]
+    \end{lstlisting}
+
+\prototype{Array}{mt\_coordinatesOfIntersectionOfTwoSegments\\}
+Возвращает координаты пересечения двух отрезков, задаваемых первыми парами точек из массива.
+
+\begin{lstlisting}
+    let array = [{x:0,y:5},{x:-4,y:4},{x:1,y:10},{x:-3,y:6}];
+
+    array.mt_coordinatesOfIntersectionOfTwoSegments()
+    //{ x: -5.333333333333333, y: 3.666666666666667, status: false }
+    //Отрезки не пересекаются, но прямые проходящие через них пересекаются в точке {x,y}
+
+    array = [{x:0,y:5},{x:-4,y:4},{x:1,y:1},{x:-3,y:6}];
+    array.mt_coordinatesOfIntersectionOfTwoSegments()
+    //{ x: -1.8333333333333333, y: 4.541666666666667, status: true }
+    //Отрезки пересекаются в точке {x,y}
+        
+\end{lstlisting}
+
+\prototype[separator]{Array}{shuffleJoin}
+Перемешивает и соединяет массив с разделителем \texttt{separator}. \texttt{separator} по умолчанию пустая строка.
+
+\begin{lstlisting}
+    let array = ['A', 'B', 'C', 'D',];
+    array.shuffleJoin();
+    //ADBC
+
+    array.shuffleJoin('; ');
+    //C; D; B; A 
+\end{lstlisting}
+
+\prototype[separator]{Array}{joinWithConjunction}
+Соединяет массив запятыми и соединяет два последних элемента союзом "и".
+
+\begin{lstlisting}
+    let array = ['A', 'B', 'C', 'D',];
+
+    array.joinWithConjunction();
+    //A, B, C и D
+\end{lstlisting}
+
+\subsubsection{Функции для работы с числами}
+\prototype{Number}{perfectCubicMultiplier}
+Возвращает максимальный делитель данного числа, куб которого также является делителем данного числа.
+
+\begin{lstlisting}
+    let number = 81;
+
+    number.perfectCubicMultiplier()
+    //3
+
+    number = 36;
+    number.perfectCubicMultiplier()
+    //1
+
+    number = -27;
+    number.perfectCubicMultiplier()
+    //3
+\end{lstlisting}
+
+\prototype[p1, p2]{Number}{texcbrt}
+TeX-представление кубического корня из данного числа.\\
+Если данное число - полный квадрат, то корень из числа.\\
+Если \texttt{p1}, то из-под корня будут вынесены возможные множители.\\
+Если \texttt{p1}, \texttt{p2} и из-под корня выносится единица, то она будет опущена\\
+
+\subsubsection{Функции для работы с canvas}
+\prototype[vertex,\\ fillStyle]{CanvasRenderingContext2D}{drawSection}
+Заполняет область цветом \texttt{fillStyle} по вершинам из массива \texttt{vertex}.
+
+\begin{lstlisting}
+    let paint1 = function(ctx) {
+        let h = 400;
+        let w = 400;
+        ctx.drawCoordinatePlane(w, h, {
+            hor: 1,
+            ver: 1
+        }, {
+            x1: '1',
+            y1: '1',
+            sh1: 16,
+        },30);
+        ctx.scale(30, -30);
+        ctx.drawSection([[1, 3],[-3, 0],[-2, -2],[1, -1],[5, 1],[4, 4],[3, 2]]);
+
+        ctx.drawSection([[-2, 0],[-1, 1],[-4, 3],[-1, 5],[1, 1],[5, 2],[4, -6],[0, 0],[-4, -2],]);
+    };
+    \end{lstlisting}
+    \includegraphics[width=0.4\textwidth]{drawSection-1.png}
+    \includegraphics[width=0.4\textwidth]{drawSection-2.png}
+
+\prototype[x, y,\\ angle, length]{CanvasRenderingContext2D}{drawLineAtAngle}
+Рисует отрезок длины \texttt{length} под углом angle в радианах.
+
+\prototype[x1, y1, x2, y2, length, quantity]{CanvasRenderingContext2D}{strokeInMiddleOfSegment\\}
+Ставит штрихи длины \texttt{length} на середине отрезка перпендикулярно ему.
+
+\prototype[x, y, angle, letter, length, maxLength]{CanvasRenderingContext2D}{markSegmentWithLetter\\}
+Вспомогательная функция для отрисовки текста около некоторого отрезка.
+
+\prototype[x1, y1, x2, y2, letter, length, maxLength]{CanvasRenderingContext2D}{signSegmentInMiddle\\}
+Рисует \texttt{letter} на середине отрезка.
+
+\prototype[coordinates, radius]{CanvasRenderingContext2D}{arcBetweenSegments\\}
+Рисует знак угла между двумя отрезками в месте их пересечения. \texttt{coordinates} - массив вида \texttt{[x1, y1, x2, y2]}.
+
+\begin{lstlisting}
+    let paint1 = function(ctx) {
+        let h = 400;
+        let w = 400;
+        ctx.drawCoordinatePlane(w, h, {
+            hor: 1,
+            ver: 1
+        }, {
+            x1: '1',
+            y1: '1',
+            sh1: 16,
+        }, 30);
+        ctx.scale(30, -30);
+
+        ctx.lineWidth = 2 / 30;
+        ctx.drawLine(1, 5, 3, -2);
+        ctx.drawLine(3, -2, 5, -3);
+        ctx.arcBetweenSegments([1, 5, 3, -2, 5, -3], 2);
+
+        ctx.drawLine(2, -5, -4, -2);
+        ctx.drawLine(1, -2, -3, -6);
+        ctx.arcBetweenSegments([2, -5, -4, -2,  -3, -6,1, -2,], 1);
+
+        ctx.drawLine(1, 5, 1, -2);
+		ctx.drawLine(1, -2, 5, -2);
+		ctx.strokeStyle = om.secondaryBrandColors.iz();
+		ctx.arcBetweenSegments([1, 5, 1, -2, 5, -2], 3);
+
+    };
+\end{lstlisting}
+
+\includegraphics[width=0.4\textwidth]{arcBetweenSegments-1.png}    
+\includegraphics[width=0.4\textwidth]{arcBetweenSegments-2.png}    
+
+\prototype[coordinates, radius, number, step]{CanvasRenderingContext2D}{arcBetweenSegmentsCount\\}
+Рисует знак угла между двумя отрезками в месте их пересечения \texttt{number} раз с отступом \texttt{step}.
+
+\prototype[x, y, radiusX, radiusY, rotation, startAngle, endAngle,\\ anticlockwise]{CanvasRenderingContext2D}{drawEllipse\\}
+Рисует эллипс.
+
+\prototype[x, y, radius, startAngle, endAngle, anticlockwise]{CanvasRenderingContext2D}{drawArc\\}
+Рисует дугу.
+
