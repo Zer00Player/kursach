@@ -125,30 +125,158 @@
 
 Матрица может содержать значения: 1, 0, либо специальное значение, указывающий на отображении ребра пунктиром.
 
+Пример канонической матрицы связей:
+
+\begin{lstlisting}[caption = {Каноническая матрица связей для параллелепипеда}]
+	[   [1],
+	    [0, 1],
+	    [1, 0, 1],
+	    [0, 0, 0, 1],
+	    [1, 0, 0, 0, 1],
+	    [0, 1, 0, 0, 0, 1],
+	    [0, 0, 1, 0, 1, 0, 1],
+	];
+\end{lstlisting}
+
 Каноническим положением будем называть такое расположение многогранника, когда его высота, проходящая через центр масс его основания, совпадает с осью аппликат и начало координат делится пополам.
 
 При таком расположении, начало координат можно расположить в центре иллюстрация. Тогда чертёж не будет смещён ни в одну из сторон.
+
+\newpage
+\begin{multicols}{2}
+	\begin{figure}[H]
+		\tdplotsetmaincoords{75}{125}
+		\begin{tikzpicture}
+			[tdplot_main_coords,
+				scale=0.9,
+				line/.style={very thick, blue},
+				linedash/.style={very thick,dashed, blue},
+				diagdash/.style={very thick,dashed, blue},
+				axis/.style={->,black, thick},
+				axisdash/.style={thick,dashed, black},
+				figure/.style={opacity=.2,very thick,fill=blue,},]
+	
+			\coordinate (O) at (0,0,0);
+			\coordinate (A) at (-2,-2,-2);
+			\coordinate (B) at (-2,2,-2);
+			\coordinate (C) at (2,2,-2);
+			\coordinate (D) at (2,-2,-2);
+	
+			\coordinate (A1) at (-2,-2,2);
+			\coordinate (B1) at (-2,2,2);
+			\coordinate (C1) at (2,2,2);
+			\coordinate (D1) at (2,-2,2);
+	
+			%draw the axes
+			\draw[axis] (O) -- (6,0,0) node[anchor=west]{$x$};
+			\draw[axis] (O) -- (0,5,0) node[anchor=west]{$y$};
+			\draw[axis] (O) -- (0,0,3) node[anchor=west]{$z$};
+			\draw[axisdash] (-5,0,0) -- (O);
+			\draw[axisdash] (0,-4,0) -- (O);
+			\draw[axisdash] (0,0,-3) -- (O);
+	
+			%draw the bottom of the cube
+			\draw[figure] (A) -- (B) -- (C) -- (D) -- cycle;
+	
+			%draw the back-right of the cube
+			\draw[figure] (A) -- (B) -- (B1) -- (A1) -- cycle;
+	
+			%draw the back-left of the cube
+			\draw[figure] (A) -- (D) -- (D1) -- (A1) -- cycle;
+	
+			%draw the front-right of the cube
+			\draw[figure] (D) -- (C) -- (C1) -- (D1) -- cycle;
+	
+			%draw the front-left of the cube
+			\draw[figure] (B) -- (C) -- (C1) -- (B1) -- cycle;
+	
+			%draw the top of the cube
+			\draw[figure] (A1) -- (B1) -- (C1) -- (D1) -- cycle;
+	
+			\draw[diagdash] (C) -- (A);
+			\draw[diagdash] (B) -- (D);
+		\end{tikzpicture}
+		\captionof{example}{Каноническое положение для параллелепипеда}
+	
+	\end{figure}
+		\begin{figure}[H]
+		\tdplotsetmaincoords{75}{115}
+		\begin{tikzpicture}
+			[tdplot_main_coords,
+				scale=0.9,
+				line/.style={very thick, blue},
+				linedash/.style={very thick,dashed, blue},
+				diagdash/.style={very thick,dashed, blue},
+				axis/.style={->,black, thick},
+				axisdash/.style={thick,dashed, black},
+				figure/.style={opacity=.2,very thick,fill=blue,},]
+	
+			\coordinate (O) at (0,0,0);
+	
+			\coordinate (A) at (3,0,-2);
+			\coordinate (B) at (0.9270,2.8531,-2);
+			\coordinate (C) at (-2.427,1.7633,-2);
+			\coordinate (D) at (-2.4270,-1.7633,-2);
+			\coordinate (E) at (0.9270,-2.8531, -2);
+	
+			\coordinate (A1) at (3,0,2);
+			\coordinate (B1) at (0.9270,2.8531,2);
+			\coordinate (C1) at (-2.427,1.7633,2);
+			\coordinate (D1) at (-2.4270,-1.7633,2);
+			\coordinate (E1) at (0.9270,-2.8531, 2);
+	
+			\coordinate (A2) at (-2.43, 0, -2);
+			\coordinate (B2) at (-0.75, -2.31,-2);
+			\coordinate (C2) at (1.96, -1.43,-2);
+			\coordinate (D2) at (1.96, 1.43,-2);
+			\coordinate (E2) at (-0.75, 2.31, -2);
+	
+			%draw the axes
+			\draw[axis] (O) -- (9,0,0) node[anchor=west]{$x$};
+			\draw[axis] (O) -- (0,4,0) node[anchor=west]{$y$};
+			\draw[axis] (O) -- (0,0,3) node[anchor=west]{$z$};
+			\draw[axisdash] (-5,0,0) -- (O);
+			\draw[axisdash] (0,-4,0) -- (O);
+			\draw[axisdash] (0,0,-3) -- (O);
+	
+			\draw[figure] (A) -- (B)  -- (C)  -- (D) -- (E) -- cycle;
+			\draw[figure] (A1) -- (B1)  -- (C1)  -- (D1) -- (E1) -- cycle;
+	
+			\draw[figure] (A) -- (B)  -- (B1) -- (A1) -- cycle;
+			\draw[figure] (C) -- (B)  -- (B1) -- (C1) -- cycle;
+			\draw[figure] (D) -- (C)  -- (C1) -- (D1) -- cycle;
+			\draw[figure] (D) -- (E)  -- (E1) -- (D1) -- cycle;
+			\draw[figure] (A) -- (E)  -- (E1) -- (A1) -- cycle;
+	
+			\draw[linedash] (A) -- (A2);
+			\draw[linedash] (B) -- (B2);
+			\draw[linedash] (C) -- (C2);
+			\draw[linedash] (D) -- (D2);
+			\draw[linedash] (E) -- (E2);
+	
+		\end{tikzpicture}
+		\captionof{example}{Каноническое положение для правильной пятиугольной призмы}
+	\end{figure}
+\end{multicols}
+	
+
 
 \subsection{Вспомогательные функции}
 
 \subsubsection{Функции для работы с координатами}
 
 \function{verticesInGivenRange}{vertex, {startX, finishX, startY, finishY}}
-
 Возвращает \texttt{true}, если двухмерная координата точки \texttt{vertex} вида \texttt{\{x,y\}} находится в некоторой области, иначе \texttt{false}.
 
 \function{autoScale}{vertex3D, camera, vertex2D, {startX, finishX, startY, finishY, step, maxScale}}
-
 Увеличивает свойство объекта \texttt{camera.scale}, пока все двухмерные координаты \texttt{vertex2D} вида \texttt{\{x,y\}}  находится в некоторой области. \texttt{step} по умолчанию $0.1$.
 
 \function{distanceFromPointToSegment}{point, segmentStart, segmentEnd}
-
 Возвращает длину перпендикуляра между двухмерной точкой \texttt{point} вида \texttt{\{x,y\}} до отрезка с концами в \texttt{segmentStart} и \texttt{segmentEnd}.
 
-\subsubsection{Работа с canvas}
+\subsubsection{Функции для работы с canvas}
 
-\prototype{CanvasRenderingContext2D}{drawFigure}{vertex, matrixConnections}
-
+\prototype[vertex, matrixConnections]{CanvasRenderingContext2D}{drawFigure}
 Соединяет линиями точки массива \texttt{vertex} с элементами \texttt{\{x,y\}} в соответствии с матрицей связей \texttt{matrixConnections}, которая является массивом,который может содержать в себе 0, 1 и массив step, указывающий на отрисовку пунктиром.
 
 Пример матрицы связей:
@@ -180,14 +308,6 @@
 
 \subsection{Этапы разработки шаблоны с вспомогательным чертежом}
 
-\begin{itemize}
-	\item Создание объекта нужного класса (фигуры)
-	\item Преобразование канонических координат на двумерную плоскость при помощи функции \texttt{project3DTo2D}
-	\item Масштабирование координат функцией \texttt{autoScale}
-	\item Корректирование матрицы связей (добавление диагоналей или сечений)
-	\item Отрисовка фигуры \texttt{drawFigure}
-\end{itemize}
-
 Для примера возьмём задание 27074
 
 \lstinputlisting[]{code/27074_1.js}
@@ -203,23 +323,3 @@
 	\texttt{NAtask.modifiers.variativeABC(letter)} (заменяет все буквы в задании на случайные).
 	\lstinputlisting[]{code/27074_5.js}
 \end{enumerate}
-
-\subsection{Шаблоны по теме Стереометрия}
-
-\subsubsection*{Задание №3011}
-
-\task{В правильной четырёхугольной пирамиде $OQSDX$ с основанием $QSDX$ боковое ребро равно $\sqrt{1489,5}$, сторона основания равна $39$. Найдите объём пирамиды.}{13689}{314379431351734n0}
-\task{В правильной четырёхугольной пирамиде $VEBXI$ с основанием $EBXI$ боковое ребро равно $\sqrt{848,5}$, сторона основания равна $27$. Найдите объём пирамиды.}{5346}{438948036652505n0}
-\task{В правильной четырёхугольной пирамиде $WYFDC$ с основанием $YFDC$ боковое ребро равно $\sqrt{1513}$, сторона основания равна $24$. Найдите объём пирамиды.}{6720}{087863431801837n0}
-
-\subsubsection*{Задание №27114}
-
-\task{Объём правильной четырёхугольной пирамиды $UCXOZ$ равен $31164$. Точка $Y$ – середина ребра $UC$. Найдите объём треугольной пирамиды $YCXZ$.}{7791}{455385802312436n0}
-\task{Объём правильной четырёхугольной пирамиды $TKUWG$ равен $4800$. Точка $L$ – середина ребра $TK$. Найдите объём треугольной пирамиды $LKUG$.}{1200}{165146394950057n0}
-\task{Объём правильной четырёхугольной пирамиды $UOVSZ$ равен $25650$. Точка $B$ – середина ребра $UO$. Найдите объём треугольной пирамиды $BOVZ$.}{6412,5}{5369517169326834n0}
-
-\subsubsection*{Задание №27115}
-
-\task{Объём треугольной пирамиды равен $ 2560 $. Через вершину пирамиды и среднюю линию её основания проведена плоскость (см. рисунок). Найдите объём отсечённой треугольной пирамиды.}{640}{905430173181577n0}
-\task{Объём треугольной пирамиды равен $ 4950 $. Через вершину пирамиды и среднюю линию её основания проведена плоскость (см. рисунок). Найдите объём отсечённой треугольной пирамиды.}{1237,5}{378093624649185n0}
-\task{Объём треугольной пирамиды равен $ 12096 $. Через вершину пирамиды и среднюю линию её основания проведена плоскость (см. рисунок). Найдите объём отсечённой треугольной пирамиды.}{3024}{224079401047001n0}

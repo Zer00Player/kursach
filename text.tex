@@ -66,7 +66,7 @@
 \lstset{
   language=JavaScript,
   extendedchars=true,
-  basicstyle=\footnotesize\ttfamily,
+  basicstyle=\normalsize\ttfamily,
   showstringspaces=false,
   breakatwhitespace=true,
   showspaces=false,
@@ -85,9 +85,11 @@
   stringstyle =\bfseries,
 }
 
-\newcommand*{\function}[2]{\texttt{\textcolor{Red}{function} \textcolor{Purple}{#1}(#2)}}
+\usepackage{autobreak}
 
-\newcommand*{\prototype}[3]{\texttt{\textcolor{Orange}{#1}.\textcolor{Blue}{prototype}.\textcolor{Purple}{#2} = \textcolor{Red}{function}(#3)}}
+\newcommand*{\function}[2]{\texttt{\textcolor{Red}{function} \textcolor{Purple}{#1}(#2)}\linebreak}
+
+\newcommand*{\prototype}[3][]{\texttt{\textcolor{Orange}{#2}.\textcolor{Blue}{prototype}.\textcolor{Purple}{#3} = \textcolor{Red}{function}(#1)}\linebreak}
 
 \usepackage{titlesec}
 
@@ -109,12 +111,33 @@
   sharp corners = southwest,
 }
 
+\usepackage{newfloat,caption,float}
+\usepackage{capt-of}
+
+\DeclareFloatingEnvironment[
+  fileext = loe,
+  listname = Пример,
+  name = Пример.,
+  placement = H,
+  within = none,
+  ]{example}
+\captionsetup[example]{labelfont=md}
+
+\usepackage{tikz,tikz-3dplot}    
+
+
+\renewcommand{\lstlistingname}{Листинг}% Listing -> Листинг
+
+
 \newcommand*{\task}[3]{
+  \begin{minipage}[t]{\linewidth}
   \begin{multicols}{2}
     #1\\\\
     Ответ: $#2$\\
     \includegraphics[width=0.4\textwidth]{#3}
   \end{multicols}
+  \captionof{example}{}
+\end{minipage}
 }
 
 \begin{document}
@@ -132,6 +155,9 @@
 \include{conclus.tex}
 
 \include{bibliography.tex}
+
+\include{applications.tex}
+
 \end{document}
 
 %Планиметрия
