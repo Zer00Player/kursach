@@ -5,6 +5,9 @@
 
 \ifluatex
 \usepackage{fontspec}
+\defaultfontfeatures{Renderer=Basic,Ligatures={TeX}}
+\setmainfont{CMU Serif}
+\setsansfont{CMU Sans Serif}
 \usepackage{polyglossia}
 \setdefaultlanguage{russian}
 \setotherlanguage{english}
@@ -134,8 +137,7 @@
   ]{image}
 \captionsetup[image]{labelfont=md}
 
-\usepackage{tikz,tikz-3dplot}    
-
+\usepackage{tikz,tikz-3dplot}
 
 \renewcommand{\lstlistingname}{Листинг}% Listing -> Листинг
 
