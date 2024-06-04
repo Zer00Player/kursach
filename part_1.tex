@@ -1,14 +1,16 @@
 
 %%Программная реализация (на языке Javascript) алгоритмов
 %% генерации фонда оценочных средств по математике
-\section{Глава первая}
+\section{Планиметрия}
+В это главе мы приводим вспомогательные функции и алгоритм написания шаблона по планиметрии
 \subsection{Вспомогательные функции}
 \subsubsection{Функции для работы с массивами}
 \prototype[repeat]{Array}{permuteCyclic}
 Возвращает массив после циклической перестановки.
+В листинге \ref{lst:105} в строке \ref{line:permuteCyclic} функция используется для перестановки букв в названии угла.
 
 \begin{lstlisting}
-    let array = [1,2,3,4,5];
+    let array = [1, 2, 3, 4, 5];
 
     array.permuteCyclic(1);
     // [5, 1, 2, 3, 4]
@@ -17,11 +19,12 @@
     // [3, 4, 5, 1, 2]
 
     array.permuteCyclic(0);
-    // [1 ,2 ,3 ,4 ,5]
+    // [1, 2, 3, 4, 5]
     \end{lstlisting}
 
 \prototype{Array}{mt\_coordinatesOfIntersectionOfTwoSegments\\}
 Возвращает координаты пересечения двух отрезков, задаваемых первыми парами точек из массива.
+В листинге \ref{lst:27193} в строке \ref{line:mt_coordinatesOfIntersectionOfTwoSegments} функция используется для нахождения точки пересечения рёбер составного многогранника.
 
 \begin{lstlisting}
     let array = [{x:0,y:5},{x:-4,y:4},{x:1,y:10},{x:-3,y:6}];
@@ -38,7 +41,8 @@
 \end{lstlisting}
 
 \prototype[separator]{Array}{shuffleJoin}
-Перемешивает и соединяет массив с разделителем \texttt{separator}. \texttt{separator} по умолчанию пустая строка.
+Перемешивает и соединяет массив с разделителем \texttt{separator}. \texttt{separator} по умолчанию пустая строка. Функция используется в \ref{lst:3011}
+в строке \ref{line:shuffleJoin} для отображения условий задачи в случайном порядке.
 
 \begin{lstlisting}
     let array = ['A', 'B', 'C', 'D',];
@@ -50,7 +54,7 @@
 \end{lstlisting}
 
 \prototype[separator]{Array}{joinWithConjunction}
-Соединяет массив запятыми и соединяет два последних элемента союзом "и".
+Соединяет массив запятыми и соединяет два последних элемента союзом «и».
 
 \begin{lstlisting}
     let array = ['A', 'B', 'C', 'D',];
@@ -80,7 +84,7 @@
 
 \prototype[p1, p2]{Number}{texcbrt}
 TeX-представление кубического корня из данного числа.\\
-Если данное число - полный квадрат, то корень из числа.\\
+Если данное число - полный куб, то корень из числа.\\
 Если \texttt{p1}, то из-под корня будут вынесены возможные множители.\\
 Если \texttt{p1}, \texttt{p2} и из-под корня выносится единица, то она будет опущена\\
 
@@ -110,16 +114,16 @@ TeX-представление кубического корня из данно
     \includegraphics[width=0.4\textwidth]{drawSection-2.png}
 
 \prototype[x, y,\\ angle, length]{CanvasRenderingContext2D}{drawLineAtAngle}
-Рисует отрезок длины \texttt{length} под углом angle в радианах.
+Рисует отрезок длины \texttt{length} под углом angle ( в радианах). Пример использования в листинге \ref{lst:2069} в строках \ref{line:drawLineAtAngle-1} и \ref{line:drawLineAtAngle-2} (используется для отрисовки биссектрисы). 
 
 \prototype[x1, y1, x2, y2, length, quantity]{CanvasRenderingContext2D}{strokeInMiddleOfSegment\\}
-Ставит штрихи длины \texttt{length} на середине отрезка перпендикулярно ему.
+Ставит штрихи длины \texttt{length} на середине отрезка перпендикулярно ему. Функция используется в листинге \ref{lst:2069} в строках \ref{line:strokeInMiddleOfSegment-1}-\ref{line:strokeInMiddleOfSegment-2} для обозначения равных по длине сторон треугольника.
 
 \prototype[x, y, angle, letter, length, maxLength]{CanvasRenderingContext2D}{markSegmentWithLetter\\}
 Вспомогательная функция для отрисовки текста около некоторого отрезка.
 
 \prototype[x1, y1, x2, y2, letter, length, maxLength]{CanvasRenderingContext2D}{signSegmentInMiddle\\}
-Рисует \texttt{letter} на середине отрезка.
+Рисует строку \texttt{letter} на середине отрезка. В листинге \ref{lst:27193} в строках \ref{line:signSegmentInMiddle-1} - \ref{line:signSegmentInMiddle-2} функция используется для отображения длин рёбер многогранника.
 
 \prototype[coordinates, radius]{CanvasRenderingContext2D}{arcBetweenSegments\\}
 Рисует знак угла между двумя отрезками в месте их пересечения. \texttt{coordinates} - массив вида \texttt{[x1, y1, x2, y2]}.
@@ -159,11 +163,28 @@ TeX-представление кубического корня из данно
 \includegraphics[width=0.4\textwidth]{arcBetweenSegments-2.png}    
 
 \prototype[coordinates, radius, number, step]{CanvasRenderingContext2D}{arcBetweenSegmentsCount\\}
-Рисует знак угла между двумя отрезками в месте их пересечения \texttt{number} раз с отступом \texttt{step}.
+Рисует знак угла между двумя отрезками в месте их пересечения \texttt{number} раз с отступом \texttt{step}. В листинге \ref{lst:27764} в строках \ref{line:arcBetweenSegmentsCount-1} - \ref{line:arcBetweenSegmentsCount-2} используется для обозначения двух равных углов.
 
 \prototype[x, y, radiusX, radiusY, rotation, startAngle, endAngle,\\ anticlockwise]{CanvasRenderingContext2D}{drawEllipse\\}
 Рисует эллипс.
 
 \prototype[x, y, radius, startAngle, endAngle, anticlockwise]{CanvasRenderingContext2D}{drawArc\\}
 Рисует дугу.
+
+\subsection{Этапы разработки шаблоны с вспомогательным чертежом по теме «Планиметрия»}
+
+Для примера возьмём задание №19416~\cite{egemath}.
+
+Заготовка шаблона имеет вид.
+
+\lstinputlisting[]{code/109_1.js}
+
+\begin{enumerate}
+    \item Начнём с отрисовки чертежа для задания. Отметим стороны треугольника так, чтобы он лежал в центре холста, а до краёв оставалось 10-20px. При отрисовке используем функцию \texttt{drawLine}. Добавим высоту 
+    \lstinputlisting[]{code/109_2.js} 
+    \item Добавим на рисунок штрихи, указывающие на равенство сторон и обозначение прямого угла при помощи функций strokeInMiddleOfSegment и arcBetweenSegments соответственно. И подпишем вершины и точку перпендикуляра. Добавим модификатор \texttt{NAtask.modifiers.variativeABC(vertices)}, который заменяет все буквы в задании на случайные.
+    \lstinputlisting[]{code/109_3.js} 
+    \item Теперь добавим ответ в задание. Проверим при помощи \texttt{genAssertZ1000}, что ответ целый (если иначе шаблон запускается заново). Поместим все буквы и числа в \$\dots\$. Все условия из задачи преобразуем в массив и соединим случайным образом с помощью функции \texttt{shuffleJoin}.
+    \lstinputlisting[]{code/109_4.js} 
+\end{enumerate}
 
