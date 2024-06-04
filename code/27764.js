@@ -24,8 +24,8 @@
 
 			//Углы
 			ctx.strokeStyle = om.primaryBrandColors[rand];
-			ctx.arcBetweenSegmentsCount([vertex.x, vertex.y, 10, 370].concat([bisector1.x, bisector1.y]), 30, 2);
-			ctx.arcBetweenSegmentsCount([bisector1.x, bisector1.y].concat([10, 370, 390, 370]), 40, 2);
+			ctx.arcBetweenSegmentsCount([vertex.x, vertex.y, 10, 370].concat([bisector1.x, bisector1.y]), 30, 2); |\label{line:arcBetweenSegmentsCount-1}|
+			ctx.arcBetweenSegmentsCount([bisector1.x, bisector1.y].concat([10, 370, 390, 370]), 40, 2); |\label{line:arcBetweenSegmentsCount-2}|
 
 			ctx.strokeStyle = om.primaryBrandColors[rand];
 			ctx.arcBetweenSegments([10, 370, 390, 370].concat([bisector2.x, bisector2.y]), 30);

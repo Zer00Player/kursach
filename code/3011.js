@@ -71,7 +71,7 @@
 			text: 'В правильной четырёхугольной пирамиде $SABCD$ с ' + 'основанием $ABCD$ ' + 
 				[question[0][0].ie + ' рав' + ['ен', 'на', 'но'][question[0][0].rod] + ' $' + question[0][1].pow(2).texsqrt(1) + '$',
 				question[1][0].ie + ' рав' + ['ен', 'на', 'но'][question[1][0].rod] + ' $' + question[1][1].pow(2).texsqrt(1) +'$'
-				].shuffleJoin(', ') +
+				].shuffleJoin(', ') + |\label{line:shuffleJoin}|
 				'. Найдите ' + question[2][0].ve + ' пирамиды.',
 			answers: question[2][1],
 			author: ['Суматохина Александра'],

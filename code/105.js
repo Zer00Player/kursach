@@ -7,7 +7,7 @@
 
         let vertices = window.latbukv.iz(4);
 
-		let angle = sl1() ? vertices.slice(0, 3).permuteCyclic(1) : vertices.slice(0, 3).permuteCyclic(2);
+		let angle = sl1() ? vertices.slice(0, 3).permuteCyclic(1) : vertices.slice(0, 3).permuteCyclic(2); |\label{line:permuteCyclic}|
 
 		genAssertZ1000(b / a, 'Кривой ответ');
 

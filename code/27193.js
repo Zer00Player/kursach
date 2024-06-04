@@ -82,7 +82,7 @@
 				ctx.drawFigureVer2(point2D, matrixConnections);
 
 				if (point2D[4].x > point2D[8].x) {
-					let point = [point2D[4], point2D[5], point2D[8], point2D[13]].mt_coordinatesOfIntersectionOfTwoSegments();
+					let point = [point2D[4], point2D[5], point2D[8], point2D[13]].mt_coordinatesOfIntersectionOfTwoSegments(); |\label{line:mt_coordinatesOfIntersectionOfTwoSegments}|
 					ctx.drawLine(point2D[5].x, point2D[5].y, point.x, point.y);
 				} else {
 					ctx.drawLine(point2D[4].x, point2D[4].y, point2D[5].x, point2D[5].y);
@@ -91,11 +91,11 @@
 				}
 
 				ctx.font = "20px liberation_sans";
-				ctx.signSegmentInMiddle(point2D[2].x, point2D[2].y, point2D[7].x, point2D[7].y, par1.height, 10, 20);
+				ctx.signSegmentInMiddle(point2D[2].x, point2D[2].y, point2D[7].x, point2D[7].y, par1.height, 10, 20); |\label{line:signSegmentInMiddle-1}|
 				ctx.signSegmentInMiddle(point2D[10].x, point2D[10].y, point2D[15].x, point2D[15].y, par2.height, 10, 20);
 				ctx.signSegmentInMiddle(point2D[12].x, point2D[12].y, point2D[15].x, point2D[15].y, par2.width, -10, 20);
 				ctx.signSegmentInMiddle(point2D[0].x, point2D[0].y, point2D[1].x, point2D[1].y, par1.width, 18, 20);
-				ctx.signSegmentInMiddle(point2D[1].x, point2D[1].y, point2D[2].x, point2D[2].y, par1.depth, 18, 20);
+				ctx.signSegmentInMiddle(point2D[1].x, point2D[1].y, point2D[2].x, point2D[2].y, par1.depth, 18, 20);|\label{line:signSegmentInMiddle-2}|
 			};
 			NAtask.setTask({
 				text: 'Найдите ' + ['площадь поверхности', 'объём'][rand] +

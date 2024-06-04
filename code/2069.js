@@ -14,15 +14,15 @@
 			let angle = Math.PI/2.9;
 			
 			ctx.strokeStyle = om.secondaryBrandColors.iz();
-			ctx.drawLine(10, 250, 390-8, 250);
+			ctx.drawLine(10, 250, 390-8, 250); 
 			let ver = ctx.drawLineAtAngle(10, 250, -angle, 200-25);
-			ctx.drawLineAtAngle(ver.x, ver.y, -angle+Math.PI/2, 350-20);
+			ctx.drawLineAtAngle(ver.x, ver.y, -angle+Math.PI/2, 350-20); |\label{line:drawLineAtAngle-1}|
 			//штрихи
-			ctx.strokeInMiddleOfSegment(10, 250, (390-8)/2, 250, 10);
-			ctx.strokeInMiddleOfSegment(10, 250, 3*(390-8)/2, 250, 10);
+			ctx.strokeInMiddleOfSegment(10, 250, (390-8)/2, 250, 10); |\label{line:strokeInMiddleOfSegment-1}|
+			ctx.strokeInMiddleOfSegment(10, 250, 3*(390-8)/2, 250, 10); |\label{line:strokeInMiddleOfSegment-2}|
 			//биссектриса
 			ctx.strokeStyle = om.primaryBrandColors [0];
-			let bis = ctx.drawLineAtAngle(ver.x, ver.y, (-angle+Math.PI/2)+Math.PI/4, 160+2);
+			let bis = ctx.drawLineAtAngle(ver.x, ver.y, (-angle+Math.PI/2)+Math.PI/4, 160+2); |\label{line:drawLineAtAngle-2}|
 			//медиана
 			ctx.strokeStyle = om.primaryBrandColors [1];
 			ctx.drawLine(ver.x, ver.y,(390-8)/2, 250);
