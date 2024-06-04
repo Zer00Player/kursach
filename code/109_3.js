@@ -9,10 +9,11 @@
 			ctx.lineWidth = 2;
 			ctx.strokeStyle = om.secondaryBrandColors;
 
+			//стороны
 			ctx.drawLine(10, 370, 390, 370);
 			ctx.drawLine(10, 370, 180, 50);
 			ctx.drawLine(180, 50, 390, 370);
-
+			//высота
 			ctx.drawLine(280, 200, 10, 370);
 
 			ctx.strokeInMiddleOfSegment(180, 50, 10, 370, 10);
