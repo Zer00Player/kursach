@@ -171,6 +171,36 @@ TeX-представление кубического корня из данно
 \prototype[x, y, radius, startAngle, endAngle, anticlockwise]{CanvasRenderingContext2D}{drawArc\\}
 Рисует дугу.
 
+\subsubsection{Функции вызова ошибок}
+
+Во время разработки шаблонов по теме «Графики функции» требовалось много раз переопределять коэффициенты функций через циклы 
+\texttt{while} или \texttt{do\dots while}, пока они не начнут соответствовать заданным условиям (видимость графика, сливание его с осями, видимость целых точек). Это часто приводило к бесконечной работе шаблона, при этом сложно было определить, какое условие не выполняется.
+
+Для этого было разработано окружение \texttt{retryWhileUndefined} для шаблонов, которое бы перезапускало их не более \texttt{maxIterations} раз, если одно из условий не удалетворено. 
+
+\function{retryWhileUndefined}{theFunction, maxIterations}
+
+Но всё равно было тяжело определить, почему шаблон перезапускается. Для этого было разработано более совершенное окружение \texttt{retryWhileError}, которое не только могло бы ограничивать количество перезапусков, но и фиксировать, какие проверки не были пройдены и выводить их на экран.
+
+\function{retryWhileError}{theFunction, maxIterations,maxCollectedErrors}
+
+Для окружения были написаны функции-утверждения, которые имеют структуру : условие не выполнено - записать ошибку - перезапустить шаблон. Если максимальное количество повторений достигнуто, то вывести накопившиеся ошибки и количество их появлений. 
+
+\function{genAssert}{condition, message}
+    Если условие \texttt{condition} - false, то шаблон перезапускается. 
+
+\function{genAssertNonempty}{array, message}
+    Если массив \texttt{array} пуст, то шаблон перезапускается.
+
+\function{genAssertZ1000}{number, message}
+    Если число \texttt{number} имеет более 3 знаков после запятой, то шаблон перезапускается.
+    
+\function{genAssertIrreducible}{numerator, denominator, message}
+    Если дробь \texttt{numerator/denominator} сократима, то шаблон перезапускается.
+
+\function{genAssertSaneDecomposition}{number, maxFactor, message}
+    Если \texttt{number} число не раскладывается на простые множители, не более одного из которых превосходит \texttt{maxFactor}.
+
 \subsection{Этапы разработки шаблоны с вспомогательным чертежом по теме «Планиметрия»}
 
 Для примера возьмём задание №19416~\cite{egemath}.
