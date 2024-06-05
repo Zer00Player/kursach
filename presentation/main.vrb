@@ -1,0 +1,16 @@
+\frametitle{Генерация проектора при помощи ChatGPT}
+\begin{leftBox}
+		write a 2D to 3D projector in JS without using libraries. input:  point = \{x,y,z\}, camera= \{x,y,z, angleX, angleY, angleZ, scale\}
+	\end{leftBox}
+
+	\begin{rightBox}
+		function project2Dto3D(point, camera) { ...	return { x: translatedX, y: translatedY, z: translatedZ };
+	\end{rightBox}
+
+	\begin{leftBox}
+		shorten function project2Dto3D
+	\end{leftBox}
+
+	\begin{rightBox}
+		function project2Dto3D(point, camera) { ...	return { x: rx + cx, y: ry + cy, z: rz + cz };
+	\end{rightBox}
