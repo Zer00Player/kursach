@@ -30,7 +30,7 @@
 %%% Дополнительная работа с математикой
 \usepackage{amsfonts,amssymb,amsthm,mathtools} % AMS
 \usepackage{amsmath}
-\usepackage{icomma} % «Умная» запятая: $0,2$ --- число, $0, 2$ --- перечисление
+\usepackage{icomma} % «Умная» запятая: $0,2$ — число, $0, 2$ — перечисление
 
 \usepackage{mathrsfs} % Красивый матшрифт
 
@@ -121,8 +121,8 @@
 
 \DeclareFloatingEnvironment[
   fileext = loe,
-  listname = Приложение,
-  name = Приложение.,
+  listname = Задача,
+  name = Задача.,
   placement = H,
   within = none,
   ]{application}
@@ -142,14 +142,14 @@
 \renewcommand{\lstlistingname}{Листинг}% Listing -> Листинг
 
 
-\newcommand*{\task}[3]{
+\newcommand*{\task}[4]{
   \begin{minipage}[t]{\linewidth}
   \begin{multicols}{2}
     #1\\\\
     Ответ: $#2$\\
     \includegraphics[width=0.4\textwidth]{#3}
   \end{multicols}
-  \captionof{application}{}
+  \captionof{application}{Пример генерации задания с помощью #4}
 \end{minipage}
 }
 
@@ -206,8 +206,3 @@
   %вспомогательные функцииЫ
   %шаблоны
 %ВОЗМОЖНО ТОЛЬКО ЭТО
-
-
-%TODO: В приложении доб наиболее исп с пояснениями
-  %рандомайзеры sl slKrome shuffle 
-  %
