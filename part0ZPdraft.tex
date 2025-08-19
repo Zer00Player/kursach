@@ -1,7 +1,8 @@
-\section{Генерация задач для ЕГЭ и ОГЭ}
+\section{Генерация текстовых задач}
 
-В этом разделе представлены пару работ, связанные с автоматизацией составления заданий по математике. 
-Работа велась на языке \texttt{JavaScript}, с использованием авторских вспомогательных функций для визуализации и генерации условий.
+В Первом разделе представлены работы, связанные Текстовыми задачами. 
+%Работа велась на языке \texttt{JavaScript}, с использованием вспомогательных функций для визуализации и генерации условий.
+Так как в 
 %15, 21 "текстовые задачи"
 %рассказать про декорации, про chislitlx(пулл реквест с r2), сочетания 
 %предварительные сведения (функции, кратко ,генассерт и тп)
@@ -18,183 +19,102 @@
 %захожу в калатог, через меню переключаемся на тест на печать внимательно (?) выставить нулями все задания кроме того что нужно ставить галочку " экспорт в латех" 
 %ставим запуск,жду,думаю, падает зипка с задачами в латехе, в перемешку 
 %исходная задача/код/полученная задача (сгенерин текст)
-\subsection{Задачи №21 ЕГЭ (задачи на смекалку)}
+При построении текстовых шаблонов задач важно обеспечить как вариативность формулировок, так и корректность числовых и языковых выражений. Для этого в проекте применяются следующие инструменты.
 
-\begin{lstlisting}[language=JavaScript]
-(function () { 
-    'use strict'; retryWhileError(function ()
-    { NAinfo.requireApiVersion(0, 2);
+\subsection{Декорации}
 
-    let firstCountries = sl(3, 9, 1);
-    let secondCountries = sl(3, 9, 1);
+Чтобы увеличить количество уникальных вариантов задач, сохраняя их математическую суть, используются так называемые ``декорации''~--- элементы окружения, которые можно менять без потери смысла задачи: имена персонажей, место действия, цель, контекст. 
 
-    let otherCountriesFirst = firstCountries - 1;
-    let otherCountriesSecond = secondCountries - 1;
-
-    let numberWords = ['три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять'];
-    let previousNumberWords = ['две', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь'];
-
-    let firstCountriesWord = lx[numberWords[firstCountries - 3]].i; 
-    let secondCountriesWord = lx[numberWords[secondCountries - 3]].r;
-
-    let firstOtherCountriesWord = lx[previousNumberWords[firstCountries - 3]].t; 
-    let secondOtherCountriesWord = lx[previousNumberWords[secondCountries - 3]].t; 
-
-    let contract = ['о дружбе', 'во избежание двойного налогообложения', 'о безвизовом режиме',
-     'об экологической среде', 'по гуманитарным вопросам', 'по вопросам безопасности'].iz();
-    let result = firstCountries * otherCountriesSecond + secondCountries * otherCountriesFirst; 
-
-    genAssert(result.kratno(2), "количество подписей должно быть кратно двум"); 
-
-    NAtask.setTask({ t
-    ext: 'Из ' + '$' + (firstCountries + secondCountries) + '$' + ' стран ' + firstCountriesWord + ' подписали договор ' +
-     contract + ' ровно с ' + secondOtherCountriesWord + ' другими странами, ' + 'а каждая из оставшихся ' + secondCountriesWord +
-      ' — ровно с ' + firstOtherCountriesWord + '. ' + 'Сколько всего было подписано договоров?', 
-      answers: result / 2, 
-      }); 
-      }); 
-      })();
+Для этого создаются массивы строк, а функция \texttt{iz()} случайным образом выбирает элемент из массива.  
+Пример:
+\begin{lstlisting}
+let contract = ['о дружбе', 'во избежание двойного налогообложения',
+    'о безвизовом режиме', 'об экологической среде',
+    'по гуманитарным вопросам', 'по вопросам безопасности'].iz();
 \end{lstlisting}
+\textbf{Задача №514913.}
 
-\subsection{Задачи №15 ЕГЭ (проценты и дроби)}
-
-Данный проект посвящён автоматической генерации задач по процентам и дробям. 
-В качестве основы использовались реальные прототипы заданий из банка ФИПИ.
-
-\begin{lstlisting}[language=JavaScript]
-(function () { 
-    'use strict'; 
-    retryWhileError(function () 
-    { NAinfo.requireApiVersion(0, 2); 
-    
-    let putOnAccount = sl(500, 10000, 100); 
-    let persent = sl(7, 30, 1); 
-
-    let bank = ['Сберегательный банк', 'Банк'].iz(); 
-    let bankName = ['Бритва Оккама', 'Угол перспективы', 'Паутина', 'Динамика роста', 'Вожжи коммерции', ' Сыграй в ящик', 'Копилка', 
-    'Золотое сечение', 'Профит', 'Один процент разности', 'Пол-царства', 'Падает вверх', 'Из грязи В князи'].iz(); 
-    let accountEndOfYears = putOnAccount + putOnAccount * (persent * 0.01); 
-    
-    NAtask.setTask({ text: bank + ' "' + bankName + '" начисляет на срочный вклад ', 
-    questions: [ 
-        { text: '$' + persent + '$' + '% годовых. ' + 'Вкладчик положил на счет ' + '$' + putOnAccount + '$' + ' р. ' +
-         'Какая сумма будет на этом счёте через год, ' + 'если никаких операций со счётом проводиться не будет', 
-         answers: accountEndOfYears, 
-        }, 
-        { text: '$' + persent + '$' + '% годовых. ' + 'Вкладчик положил на счёт некоторую сумму. ' +
-         'Со счётом не проводилось никаких операций и через год на нём лежала сумма равная ' + '$' + accountEndOfYears + '$' + ' р. ' + 
-         'Сколько рублей изначально положил на счёт вкладчик', 
-         answers: putOnAccount, }, 
-        { text: 'проценты годовых. ' + 'Вкладчик положил на счет ' + '$' + putOnAccount + '$' + ' р. ' + 
-        'Со счётом не проводилось никаких операций и через год на нём лежала сумма равная ' + '$' + accountEndOfYears + '$' + ' р. ' + 
-        'Сколько процентов годовых начислил банк на этот вклад', 
-        answers: persent, 
-        }, 
-        ], 
-        postquestion: '?', 
-        }); 
-        }, 100); 
-        })();
+Если необходимо выбрать два случайных, но не повторяющихся элемента, используется форма \texttt{iz(2)}:  
+\begin{lstlisting}
+let tapeName = sklonlxkand(['лента', 'верёвка', 'нитка'].iz(2));
 \end{lstlisting}
+\textbf{Задача №2434.}
 
-\subsection{Задачи №4 ЕГЭ (преобразование выражений)}
+\subsection{Склонение существительных}
 
-\begin{lstlisting}[language=JavaScript]
-(function () { 
-    'use strict'; 
-    retryWhileError(function () 
-    { NAinfo.requireApiVersion(0, 2); 
-    let key = '506276'; 
-    let preference = ['geometric', 'quadratic', 'harmonic']; 
-    let rand = getSelectedPreferenceFromList(key, preference);
-    genAssert(!sl(0, 25) || rand !== 2, 'Среднее гармоническое появляется слишком часто'); 
-     
-    let the_orderToFind = decor.orderToFind.iz(); 
-    let word = ['геометрическое', 'квадратичное', 'гармоническое'][rand]; 
-     
-    let a = sl(1, 50); let b = slKrome([a], 1, 50); let c = slKrome([a, b], 1, 50); 
-    let answer = [(a * b * c).cbrt(), ((a ** 2 + b ** 2 + c ** 2) / 3).sqrt(), 3 / (a + b + c)][rand];
-     
-    genAssertZ1000(answer, 'Должно быть не более 3 знаков после запятой'); 
-     
-    NAtask.setTask({ text: 'Среднее ' + word + ' трёх чисел $a$, $b$ и $c$ вычисляется по формуле ' +
-      '$' + ['g = \\sqrt[3]{abc}', 'q = \\sqrt{\\frac{a^2+b^2+c^2}{3}}', 'h = \\left(\\frac{\\frac{1}{a}+\\frac{1}{b}+\\frac{1}{c}}{3} \\right)^{-1}'][rand] + '$.' +
-      '$. ' + the_orderToFind.toZagl() + ' среднее ' + word + ' чисел $' + [a, a, '\\frac{1}{' + a + '}'][rand] + '$, $' + [b, b, '\\frac{1}{' + b + '}'][rand] + 
-      '$, $' + [c, c, '\\frac{1}{' + c + '}'][rand] + '$.',
-       answers: answer, 
-       preference: preference, 
-       }); 
-       NAtask.modifiers.allDecimalsToStandard();
-    }, 2000); 
-    })();
+В силу особенностей русского языка слова должны корректно изменяться по падежам и числам. Для этого применяется функция \texttt{sklonlxkand}, позволяющая генерировать правильные словоформы.  
+
+После выбора слова к нему можно обратиться по падежу и числу. Например, \texttt{.ie} означает именительный падеж, единственное число.  
+
+Пример использования:
+\begin{lstlisting}
+let typeOfFlowerInVases =
+  sklonlxkand(['роза','гвоздника','ромашка','лилия',
+               'мак','ирис','лаванда','мимоза'].iz());
+
+NAtask.setTask({
+  text: 'На прилавке цветочного магазина стоят три вазы с '
+    + typeOfFlowerInVases.tm + ': ' + vaseColor[0] + 'ая, '
+    + vaseColor[1] + 'ая, ' + vaseColor[2] + 'ая.' 
+    + ' Слева от ' + vaseColor[2] + 'ой вазы '
+    + chislitlx(leftOfThirdVase, typeOfFlowerInVases, '$')
+    + ', справа от ' + vaseColor[0] + 'ой вазы '
+    + chislitlx(righttOfFirstVase, typeOfFlowerInVases, '$') + '. '
+    + 'Всего в вазах '
+    + chislitlx(allFlowerInVases, typeOfFlowerInVases, '$') + '. '
+    + 'Сколько ' + typeOfFlowerInVases.rm + ' в '
+    + vaseColor[1] + 'ой вазе?',
+  answers: secondVaseCountFlower,
+});
 \end{lstlisting}
+\textbf{Задача №515842.}
 
-\subsection{Задачи №7 ОГЭ (координатная прямая)}
+\subsection{Связка числа и существительного}
 
-Наиболее значимая часть работы — это разработка функций для визуализации координатной прямой и точек на ней. 
-Была создана универсальная функция \texttt{coordAxis\_drawMarkPoint}, позволяющая отображать засечки и подписи в разных режимах.
-\section{Функция для отрисовки меток на координатной оси}
+Для корректного согласования числительных с существительными используется функция \texttt{chislitlx}. Она автоматически выбирает нужную форму слова в зависимости от числа.  
+Пример:
+\begin{lstlisting}
+let numberOfApartamentPerFloor = sluchch(3, 12, 1);
+NAtask.setTask({
+  text: 'В доме, в котором живет ' + nameOfPerson + ', ' +
+    '$' + floorNumber + '$ этажей и несколько подъездов. На каждом этаже находится по ' +
+    chislitlx(numberOfApartamentPerFloor, 'квартира', '$') + '. '
+    + nameOfPerson + ' живет в квартире №' + '$' + apartamentNumber + '$' + '. '
+    + 'В каком подъезде живет ' + nameOfPerson + '? ',
+  answers: '$' + (apartamentNumber /
+             (floorNumber * numberOfApartamentPerFloor)).ceil() + '$',
+});
+\end{lstlisting}
+\textbf{Задача №77351.}
 
-Одним из ключевых элементов реализации автоматической генерации заданий
-стала функция \texttt{coordAxis\_drawMarkPoint}. Она предназначена для
-отрисовки различных типов меток на координатной оси и их подписей.
-
-\subsection{Назначение функции}
-Функция решает задачу визуализации точек и вспомогательных обозначений на оси,
-что является неотъемлемой частью заданий ОГЭ и ЕГЭ по математике.
-С помощью данной функции возможно изображать:
+\subsection{Проверка условий (генерация утверждений)}
+Для контроля корректности задачи применяются функции \texttt{genAssert} и её вариации. Принцип работы:  
 \begin{itemize}
-    \item закрашенные точки (``dot''),
-    \item выколотые точки (``emptyDot''),
-    \item засечки (``line''),
-    \item отсутствие метки (``nothing'').
+    \item если условие не выполнено~--- фиксируется ошибка;
+    \item шаблон перезапускается;
+    \item если достигнуто максимальное количество перезапусков, выводятся накопившиеся ошибки с указанием количества.
 \end{itemize}
 
-\subsection{Интерфейс функции}
-Функция имеет следующий набор параметров:
-\begin{itemize}
-    \item \texttt{ct}~--- графический контекст Canvas,
-    \item \texttt{coord}~--- координата по оси $X$,
-    \item \texttt{text}~--- подпись для метки,
-    \item \texttt{markForm}~--- форма метки: \texttt{dot}, \texttt{emptyDot}, \texttt{line}, \texttt{nothing},
-    \item \texttt{textPosition}~--- расположение подписи: под осью (\texttt{underAxis}), над осью (\texttt{overAxis}), на оси (\texttt{onAxis}),
-    \item \texttt{options}~--- дополнительные параметры (шрифт, цвет текста, толщина линии, смещение).
-\end{itemize}
+Пример использования:
+\begin{lstlisting}
+let students = sl(200, 10000, 10);
+let percent = sl(10, 90, 1); 
+genAssert(students.kratno(100 / percent),
+          "количество учащихся не кратно 100/процент");
+\end{lstlisting}
+\textbf{Задача №77340.}
 
-\subsection{Алгоритм работы}
-\begin{enumerate}
-    \item Сохраняются текущие параметры отрисовки (\texttt{fillStyle}, \texttt{strokeStyle}, \texttt{font}, \texttt{lineWidth}).
-    \item Устанавливаются новые параметры, переданные в \texttt{options}.
-    \item В зависимости от параметра \texttt{markForm} рисуется выбранный элемент:
-    \begin{itemize}
-        \item точка~--- закрашенный круг,
-        \item выколотая точка~--- окружность с заливкой белым цветом внутри,
-        \item засечка~--- вертикальная черта,
-        \item отсутствие~--- элемент не отрисовывается.
-    \end{itemize}
-    \item В зависимости от параметра \texttt{textPosition} подпись размещается под осью, над осью или на линии оси.
-    \item Восстанавливаются исходные параметры графического контекста.
-\end{enumerate}
+Также часто используется функция \function{genAssertZ1000}{number, message}, проверяющая точность чисел: если у числа более трёх знаков после запятой, шаблон перезапускается.  
+Пример:
+\begin{lstlisting}
+let prise = sl(100, 2000, 10);
+let percentSecondMonth = sl(10, 90, 1);
+let percentThirdMonth = sl(10, 90, 1);
 
-\subsection{Взаимодействие с другими функциями}
-Данная функция является частью связки:
-\begin{itemize}
-    \item \texttt{coordAxis\_prepare}~--- подготавливает область для оси и рисует стрелку,
-    \item \texttt{coordAxis\_drawAuto}~--- автоматически вычисляет масштаб оси и вызывает \texttt{coordAxis\_drawMarkPoint} для всех точек.
-\end{itemize}
+let middlePrise = prise * (1 + [1, -1][randFirst] * 0.01 * percentSecondMonth);
+let finalePrise = middlePrise * (1 + [1, -1][randSecond] * 0.01 * percentThirdMonth);
 
-\subsection{Особенности реализации}
-\begin{itemize}
-    \item Поддержка как закрашенных, так и выколотых точек позволяет формировать задания с открытыми и закрытыми интервалами.
-    \item Восстановление исходных параметров гарантирует корректную работу при множественной отрисовке.
-    \item Возможность смещения текста по оси $X$ помогает избежать наложений подписей.
-\end{itemize}
-
-\subsection{Пример использования}
-\begin{verbatim}
-// Отрисовка закрашенной точки A с подписью под осью
-coordAxis_drawMarkPoint(ct, 100, "A", "dot", "underAxis");
-
-// Отрисовка выколотой точки B с подписью над осью
-coordAxis_drawMarkPoint(ct, 200, "B", "emptyDot", "overAxis");
-\end{verbatim}
+genAssertZ1000(finalePrise / 10,
+               'Число имеет более 2 знаков после запятой');
+\end{lstlisting}
+\textbf{Задача №77349.}
