@@ -1,5 +1,4 @@
 (function () {
-
 	'use strict';
 	retryWhileError(function () {
 		NAinfo.requireApiVersion(0, 2);
