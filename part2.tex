@@ -24,10 +24,7 @@ NAtask.setTask({
 \textsl{Задача №124.}
 
 \lstinputlisting[]{code/4/124.js} 
-До:
 
-После:
-\includegraphics[width=1.4\textwidth]{124-4.png}
 \begin{lstlisting}
 NAtask.setTask({
 
@@ -80,13 +77,6 @@ NAtask.setTask({
 \end{lstlisting}
 \textsl{Задача №530329.}
 \lstinputlisting[]{code/4/530329.js} 
-До:
-После:
-\includegraphics[width=1.4\textwidth]{530329-4-1.png}
-\includegraphics[width=1.4\textwidth]{530329-4-2.png}
-\includegraphics[width=1.4\textwidth]{530329-4-3.png}
-\includegraphics[width=1.4\textwidth]{530329-4-4.png}
-%Закинуть фото разницы между \\frac{}{} и texfrac() ???
 
  \texttt{.shuffle()} перемешивает массив (например, буквы параметров) для вариативности формулировок.
 
@@ -96,21 +86,12 @@ let letter = ['a', 'b', 'c'].shuffle();
 \end{lstlisting}
 \textsl{Задача №2939.}
 \lstinputlisting[]{code/4/2939.js} 
-До:
-После:
-\includegraphics[width=1.4\textwidth]{2939-4-1.png}
-\includegraphics[width=1.4\textwidth]{2939-4-2.png}
-\includegraphics[width=1.4\textwidth]{2939-4-3.png}
 
 \texttt{.sqrt()} \texttt{.cbrt()} - утилиты для корней второй и третьей степеней. Удобны как при вычислении ответов, так и при генерации правдоподобных «отвлекающих» значений.
 Так же \texttt{.rod} - определяет грамматический род существительного: \verb|0| — м.р., \verb|1| — ж.р., \verb|2| — ср.р., \verb|3| — всегда множественное. 
 Это позволяет автоматически согласовать местоимения и прилагательные в задачах.
 Пример:
 \lstinputlisting[]{code/4/512937.js} 
-До:
-После:
-\includegraphics[width=1.4\textwidth]{512937-4-1.png}
-\includegraphics[width=1.4\textwidth]{512937-4-2.png}
 
 
 \texttt{isValidTriangle()} - из  flatten-shape-geometry 1.8.2, из 3 переменных проверяет могут ли они составить треугольник. и выдают true - если является, и false -если нет
@@ -181,5 +162,24 @@ if (preference[rand] === 'find_R') {
 \end{itemize}
 
 \lstinputlisting[]{code/4/506300.js} 
-\includegraphics[width=1.4\textwidth]{506300-4-1.png}
-\includegraphics[width=1.4\textwidth]{506300-4-2.png}
+
+На рис.~\ref{ris:506300} представлены исходная и сгенерированные задачи по шаблону №506300.
+
+\begin{figure}[h]
+\begin{minipage}[h]{1\linewidth}
+\center{\includegraphics[width=1\linewidth]{506300-sdam-2.png}} \\а)
+\end{minipage}
+\vfill
+\begin{minipage}[h]{0.95\linewidth}
+\center{%
+    \includegraphics[width=1\linewidth]{506300-4-1.png}
+    \\
+    \includegraphics[width=1\linewidth]{506300-4-2.png}
+} б) \\
+\end{minipage}
+\caption{Задачи, соответствующие шаблону 506300:
+\\
+а) исходная; б) сгенерированные}
+\label{ris:506300}
+\end{figure}
+

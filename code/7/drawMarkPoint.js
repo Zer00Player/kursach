@@ -16,6 +16,7 @@ function coordAxisdrawMarkPoint(ct, coord, text, markForm, textPosition, options
 		lineWidth = 1.5,
 		textOffsetX
 	} = options;
+
 	/* 
 	 * @param {string} [options.font="16px liberationsans"] Шрифт подписи.
 	 * @param {string} [options.fillStyle=om.secondaryBrandColors[0]] Цвет подписи и заливки точки.

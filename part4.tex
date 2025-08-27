@@ -1,5 +1,4 @@
-%7 делится на две главы. Задача с чертежом коорд.оси (предвор сведения, разработанные библ функции, шаблоны)
-% вторая - задача на сравнение чисел (как устроено округление,autoLateX )
+
 \section{Задачи №7 ОГЭ (сравнение чисел)}
 В проекте присутствует отдельный шаблон, посвящённый задачам на сравнение действительных чисел. 
 Основная цель подобных заданий --- научить учащегося ориентироваться в числовой прямой, дробях и приближённых значениях корней.  
@@ -15,11 +14,28 @@ let correct = correctVal.toFixed(1).ts();
 чтобы получить корректный ответ, который предлагается ученику.  
 Пример:
 \lstinputlisting[]{code/7/205843.js} 
-До:
-После:
-\includegraphics[width=1\textwidth]{205843-7-3.png}
-\includegraphics[width=1\textwidth]{205843-7-2.png}
-\includegraphics[width=1\textwidth]{205843-7-1.png}
+
+На рис.~\ref{ris:205843} представлены исходная и сгенерированные задачи по шаблону №205843.
+
+\begin{figure}[h]
+\begin{minipage}[h]{0.7\linewidth}
+\center{\includegraphics[width=1\linewidth]{205843-sdam.png}} \\а)
+\end{minipage}
+\vfill
+\begin{minipage}[h]{0.6\linewidth}
+\center{%
+    \includegraphics[width=1\linewidth]{205843-7-3.png}
+    \\
+    \includegraphics[width=1\linewidth]{205843-7-2.png}
+    \\
+    \includegraphics[width=1\linewidth]{205843-7-1.png}
+} б) \\
+\end{minipage}
+\caption{Задачи, соответствующие шаблону 205843:
+\\
+а) исходная; б) сгенерированные}
+\label{ris:205843}
+\end{figure}
 
 Для проверки знаний учащегося необходимо не только предъявить правильный ответ, 
 но и сформировать несколько правдоподобных «ловушек». 
@@ -62,24 +78,7 @@ AtoB(3, { autoLaTeX: true });
 В результате ученик видит задачу: 
 \textit{«Какое из следующих чисел заключено между числами …?»}, 
 к которой автоматически предлагаются четыре варианта ответа.  
-% расфосовать задачи чуть более аккуратно и с фотографиями до /после
-Пример:
-
-\lstinputlisting[]{code/7/311420.js} 
-До:
-После:
-\includegraphics[width=1\textwidth]{311420-7-1.png}
-\includegraphics[width=1\textwidth]{311420-7-2.png}
-
-\lstinputlisting[]{code/7/317132.js} 
-До:
-После:
-\includegraphics[width=1\textwidth]{317132-7-1.png}
-\includegraphics[width=1\textwidth]{317132-7-2.png}
-
-Исходная задача:
-Сгенрированная задача:
-
+Примеры:
 
 %\begin{figure}[h]
 %\center{\includegraphics[width=1\linewidth]{image}}
@@ -87,13 +86,15 @@ AtoB(3, { autoLaTeX: true });
 %\label{ris:image}
 %\end{figure}
 
-
+\lstinputlisting[]{code/7/317132.js}
 На рис.~\ref{ris:317132} представлены исходная и сгенерированные задачи по шаблону №317132.
 
-
 \begin{figure}[h]
-\begin{minipage}[h]{0.95\linewidth}
-\center{\includegraphics[width=1\linewidth]{317132-7-1.png}} \\а)
+\begin{minipage}[h]{0.8\linewidth}
+\center{\includegraphics[width=0.6\linewidth]{317132-sdam-1.png}
+    \\
+    \includegraphics[width=1\linewidth]{317132-sdam-2.png}
+} а) \\
 \end{minipage}
 \vfill
 \begin{minipage}[h]{0.95\linewidth}
@@ -109,8 +110,23 @@ AtoB(3, { autoLaTeX: true });
 \label{ris:317132}
 \end{figure}
 
+\lstinputlisting[]{code/7/311420.js} 
+На рис.~\ref{ris:311420} представлены исходная и сгенерированные задачи по шаблону №311420.
 
-%%%%%%
-%%%%%%
-
-Ура?
+\begin{figure}[h]
+\begin{minipage}[h]{0.8\linewidth}
+\center{\includegraphics[width=1\linewidth]{311420-sdam.png}} \\а)
+\end{minipage}
+\vfill
+\begin{minipage}[h]{0.95\linewidth}
+\center{%
+    \includegraphics[width=1\linewidth]{311420-7-1.png}
+    \\
+    \includegraphics[width=1\linewidth]{311420-7-2.png}
+} б) \\
+\end{minipage}
+\caption{Задачи, соответствующие шаблону 311420:
+\\
+а) исходная; б) сгенерированные}
+\label{ris:311420}
+\end{figure}
