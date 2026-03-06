@@ -5,8 +5,8 @@ function coordAxisdrawMarkPoint(ct, coord, text, markForm, textPosition, options
  * @param {CanvasRenderingContext2D} ct Контекст отрисовки.
  * @param {number} coord Координата по оси X, где нужно поставить отметку.
  * @param {string} text Подпись
- * @param {'dot'|'emptyDot'|'line'|'nothing'} markForm Форма метки: точка,выколотая точка, засечка, отсутствие метки.
- * @param {'underAxis'|'overAxis'|'onAxis'} textPosition Позиция текста относительно оси.
+ * * @param {'dot','emptyDot','line','nothing'} markForm Форма метки: точка,выколотая точка, засечка, отсутствие метки.
+ * @param {'underAxis','overAxis','onAxis'} textPosition Позиция текста относительно оси.
  * @param {Object} [options={}] Дополнительные параметры оформления.
 */
 	let {
@@ -16,7 +16,6 @@ function coordAxisdrawMarkPoint(ct, coord, text, markForm, textPosition, options
 		lineWidth = 1.5,
 		textOffsetX
 	} = options;
-
 	/* 
 	 * @param {string} [options.font="16px liberationsans"] Шрифт подписи.
 	 * @param {string} [options.fillStyle=om.secondaryBrandColors[0]] Цвет подписи и заливки точки.
@@ -49,7 +48,7 @@ function coordAxisdrawMarkPoint(ct, coord, text, markForm, textPosition, options
  	 * @param {number} lineWidth Толщина линий.
  	*/
 
-	//* @param {'dot'|'emptyDot'|'line'|'nothing'} markForm Форма метки: точка,выколотая точка, засечка, отсутствие метки.
+	//* @param {'dot','emptyDot','line','nothing'} markForm Форма метки: точка,выколотая точка, засечка, отсутствие метки.
 	switch (markForm) {
 		case "dot":
 			ct.drawFilledCircle(coord, 0, 5);
@@ -68,7 +67,7 @@ function coordAxisdrawMarkPoint(ct, coord, text, markForm, textPosition, options
 			break;
 	}
 
-	//* @param {'underAxis'|'overAxis'|'onAxis'} textPosition Позиция текста относительно оси.Под осью(для чёрточек), Над осью(для точек) и по линии оси(после стрелки).
+	//* @param {'underAxis','overAxis','onAxis'} textPosition Позиция текста относительно оси.Под осью(для чёрточек), Над осью(для точек) и по линии оси(после стрелки).
 	switch (textPosition) {
 		case "underAxis":
 			ct.fillText(text, coord - (textOffsetX || 4), 20);
@@ -92,4 +91,4 @@ function coordAxisdrawMarkPoint(ct, coord, text, markForm, textPosition, options
  	 * @see prevFont возвращет исходный шрифт
  	 * @see prevLineWidth возвращает исходную толщину
  	*/
-\};
+/};
